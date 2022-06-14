@@ -60,16 +60,16 @@ source aur.sh
 install_path="/opt/crafty"
 
 # download crafty from branch master (no releases at this time)
-github.sh --install-path "${install_path}" --github-owner 'binhex' --github-repo 'crafty' --query-type 'branch' --download-branch 'master'
+github.sh --install-path "${install_path}" --github-owner 'binhex' --github-repo 'crafty-4' --query-type 'branch' --download-branch 'master'
 
 # custom
 ####
 
 # fix up requirements by bumping requests module - see open issue https://github.com/RMDC-Crafty/crafty/issues/33
-sed -i 's~requests==2.22.0~requests==2.25.1~g' '/opt/crafty/requirements.txt'
+#sed -i 's~requests==2.22.0~requests==2.25.1~g' '/opt/crafty/requirements.txt'
 
 # alter example paths for crafty startup wizard (step1)
-sed -i -E 's~/var/opt/minecraft/server~/config/crafty/servers~g' '/opt/crafty/app/web/templates/setup/step1.html'
+#sed -i -E 's~/var/opt/minecraft/server~/config/crafty/servers~g' '/opt/crafty/app/web/templates/setup/step1.html'
 
 # python
 ####
