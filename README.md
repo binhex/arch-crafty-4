@@ -1,9 +1,5 @@
 **Application**
 
-[Crafty Controller](https://craftycontrol.com/)
-
-**Description***Application**
-
 [Crafty Controller v4](https://craftycontrol.com/)
 
 **Description**
