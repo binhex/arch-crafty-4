@@ -15,11 +15,12 @@ Latest commit to GitHub branch 'master'.
 **Usage**
 ```
 docker run -d \
-    -p <host port for crafty web ui>:8000 \
+    -p <host port for crafty web ui>:8443 \
     -p <host port range for minecraft servers>:25565-25575 \
     --name=<container name> \
     -v <path for config files>:/config \
     -v /etc/localtime:/etc/localtime:ro \
+    -e TZ=Etc/<region> \
     -e JAVA_VERSION=<8|11|latest> \
     -e UMASK=<umask for created files> \
     -e PUID=<uid for user> \
@@ -33,16 +34,20 @@ Please replace all user variables in the above command defined by <> with the co
 
 `https://<host ip>:8000`
 
-Credentials are shown on first run in the log file ```/config/supervisord.log```
+**Web UI Credentials**
+
+`Username: admin`
+`Password: crafty`
 
 **Example**
 ```
 docker run -d \
-    -p 8000:8000 \
+    -p 8443:8443 \
     -p 25565-25575:25565-25575 \
     --name=crafty \
     -v /apps/docker/crafty:/config \
     -v /etc/localtime:/etc/localtime:ro \
+    -e TZ=Etc/UTC \
     -e JAVA_VERSION=latest \
     -e UMASK=000 \
     -e PUID=0 \
@@ -62,4 +67,4 @@ If you appreciate my work, then please consider buying me a beer  :D
 
 [![PayPal donation](https://www.paypal.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=MM5E27UX6AUU4)
 
-[Documentation](https://github.com/binhex/documentation) | [Support forum](https://forums.unraid.net/topic/108893-support-binhex-crafty/)
+[Documentation](https://github.com/binhex/documentation) | [Support forum](https://forums.unraid.net/topic/124948-support-binhex-crafty-4/)
