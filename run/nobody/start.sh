@@ -25,7 +25,7 @@ source '/usr/local/bin/utils.sh' && symlink --src-path "${crafty_install_path}/b
 cd "${crafty_install_path}"
 
 # if any default config files are missing (no clobber) then copy from 'config-backup' folder (created by utils.sh symlink)
-#cp -n -R '/opt/crafty/app/config-backup/'* '/opt/crafty/app/config/'
+cp -n -R '/opt/crafty/app/config-backup/'* '/opt/crafty/app/config/'
 
 # activate virtualenv where requirements have been installed from install.sh
 source ./env/bin/activate
