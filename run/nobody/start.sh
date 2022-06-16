@@ -3,9 +3,6 @@
 # set install location for crafty
 crafty_install_path="/opt/crafty"
 
-# create folder prior to symlink
-#mkdir -p '/config/crafty/app/config' '/config/crafty/logs' '/config/crafty/import' '/config/crafty/servers' '/config/crafty/backups'
-
 # symlink app to config
 source '/usr/local/bin/utils.sh' && symlink --src-path "${crafty_install_path}/app/config" --dst-path '/config/crafty/app/config' --link-type 'softlink' --log-level 'WARN'
 
