@@ -59,8 +59,9 @@ source aur.sh
 
 install_path="/opt/crafty"
 
-# download crafty from branch master (no releases at this time)
-github.sh --install-path "${install_path}" --github-owner 'binhex' --github-repo 'crafty-4' --query-type 'branch' --download-branch 'master'
+# download crafty from branch 'master' (no releases at this time)
+# '--depth=1' ensures only latest commits to speed up download
+git clone --depth=1 --branch master https://gitlab.com/crafty-controller/crafty-4 "${install_path}"
 
 # python
 ####
