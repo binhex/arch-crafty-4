@@ -32,7 +32,7 @@ Please replace all user variables in the above command defined by <> with the co
 
 **Access Crafty Web UI**
 
-`https://<host ip>:8000`
+`https://<host ip>:8443`
 
 **Web UI Credentials**
 
