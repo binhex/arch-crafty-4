@@ -31,7 +31,7 @@ RUN chmod +x /root/*.sh && \
 EXPOSE 25565-25575
 
 # expose port for crafty web ui
-EXPOSE 8000
+EXPOSE 8443
 
 # Security Patch for CVE-2021-44228
 ENV LOG4J_FORMAT_MSG_NO_LOOKUPS=true
