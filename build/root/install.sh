@@ -38,7 +38,7 @@ fi
 ####
 
 # define pacman packages
-pacman_packages="jre8-openjdk-headless jre11-openjdk-headless jre-openjdk-headless gcc"
+pacman_packages="jre8-openjdk-headless jre11-openjdk-headless jre-openjdk-headless gcc git"
 
 # install compiled packages using pacman
 if [[ ! -z "${pacman_packages}" ]]; then
