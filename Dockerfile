@@ -27,10 +27,16 @@ RUN chmod +x /root/*.sh && \
 # docker settings
 #################
 
-# expose port range 25565-25575 for minecraft servers
+# expose port range for minecraft bedrock servers
+EXPOSE 19132-19142
+
+# expose port range for minecraft java servers
 EXPOSE 25565-25575
 
-# expose port for crafty web ui
+# expose port for crafty web ui http (redirects to https)
+EXPOSE 8000
+
+# expose port for crafty web ui https
 EXPOSE 8443
 
 # Security Patch for CVE-2021-44228

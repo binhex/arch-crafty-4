@@ -15,8 +15,10 @@ Latest commit to GitHub branch 'master'.
 **Usage**
 ```
 docker run -d \
-    -p <host port for crafty web ui>:8443 \
-    -p <host port range for minecraft servers>:25565-25575 \
+    -p <host port for crafty web ui http>:8000 \
+    -p <host port for crafty web ui https>:8443 \
+    -p <host port range for minecraft bedrock servers>:19132-19142 \
+    -p <host port range for minecraft java servers>:25565-25575 \
     --name=<container name> \
     -v <path for config files>:/config \
     -v /etc/localtime:/etc/localtime:ro \
@@ -33,6 +35,7 @@ Please replace all user variables in the above command defined by <> with the co
 **Access Crafty Web UI**
 
 `https://<host ip>:8443`
+**Note** HTTP running on port `8000` is legacy and will redirect to HTTPS on port `8443`
 
 **Web UI Credentials**
 
@@ -42,7 +45,9 @@ Please replace all user variables in the above command defined by <> with the co
 **Example**
 ```
 docker run -d \
+    -p 8000:8000 \
     -p 8443:8443 \
+    -p 19132-19142:19132-19142 \
     -p 25565-25575:25565-25575 \
     --name=crafty \
     -v /apps/docker/crafty:/config \
