@@ -17,7 +17,10 @@ Latest commit to GitHub branch 'master'.
 docker run -d \
     -p <host port for crafty web ui http>:8000 \
     -p <host port for crafty web ui https>:8443 \
-    -p <host port range for minecraft bedrock servers>:19132-19142 \
+    -p <ipv4 host port for minecraft bedrock servers>:19132/tcp \
+    -p <ipv4 host port for minecraft bedrock servers>:19132/udp \
+    -p <ipv6 host port for minecraft bedrock servers>:19133/tcp \
+    -p <ipv6 host port for minecraft bedrock servers>:19133/udp \
     -p <host port range for minecraft java servers>:25565-25575 \
     --name=<container name> \
     -v <path for config files>:/config \
@@ -47,7 +50,10 @@ Please replace all user variables in the above command defined by <> with the co
 docker run -d \
     -p 8000:8000 \
     -p 8443:8443 \
-    -p 19132-19142:19132-19142 \
+    -p 19132:19132/tcp \
+    -p 19132:19132/udp \
+    -p 19133:19133/tcp \
+    -p 19133:19133/udp \
     -p 25565-25575:25565-25575 \
     --name=crafty \
     -v /apps/docker/crafty:/config \
