@@ -62,7 +62,7 @@ docker run -d \
     binhex/arch-crafty-4
 ```
 
-**Notes**
+**Notes**<br>
 Crafty v4 does not support running as user `root` group `root`, so please ensure `PUID` and `PGID` are NOT set to `0`.<br><br>
 
 User ID (PUID) and Group ID (PGID) can be found by issuing the following command for the user you want to run the container as:-
