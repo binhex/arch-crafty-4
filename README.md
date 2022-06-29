@@ -40,8 +40,8 @@ Please replace all user variables in the above command defined by <> with the co
 
 **Web UI Credentials**
 
-`Username: admin`<br>
-`Password: crafty`
+Username: `admin`<br>
+Password: `crafty`
 
 **Example**
 ```
