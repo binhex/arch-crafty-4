@@ -27,13 +27,9 @@ RUN chmod +x /root/*.sh && \
 # docker settings
 #################
 
-# expose ipv4 port for minecraft bedrock servers
-EXPOSE 19132/tcp
-EXPOSE 19132/udp
-
-# expose ipv6 port for minecraft bedrock servers
-EXPOSE 19133/tcp
-EXPOSE 19133/udp
+# expose ipv4 port range for minecraft bedrock servers
+EXPOSE 19132-19232/tcp
+EXPOSE 19132-19232/udp
 
 # expose ipv4 port range for minecraft java servers
 EXPOSE 25565-25575

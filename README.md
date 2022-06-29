@@ -17,11 +17,9 @@ Latest commit to GitHub branch 'master'.
 docker run -d \
     -p <host port for crafty web ui http>:8000 \
     -p <host port for crafty web ui https>:8443 \
-    -p <ipv4 host port for minecraft bedrock servers>:19132/tcp \
-    -p <ipv4 host port for minecraft bedrock servers>:19132/udp \
-    -p <ipv6 host port for minecraft bedrock servers>:19133/tcp \
-    -p <ipv6 host port for minecraft bedrock servers>:19133/udp \
-    -p <host port range for minecraft java servers>:25565-25575 \
+    -p <host tcp port range for minecraft bedrock servers>:19132-19232/tcp \
+    -p <host udp port range for minecraft bedrock servers>:19132-19232/udp \
+    -p <host tcp port range for minecraft java servers>:25565-25575/tcp \
     --name=<container name> \
     -v <path for config files>:/config \
     -v /etc/localtime:/etc/localtime:ro \
@@ -50,23 +48,22 @@ Please replace all user variables in the above command defined by <> with the co
 docker run -d \
     -p 8000:8000 \
     -p 8443:8443 \
-    -p 19132:19132/tcp \
-    -p 19132:19132/udp \
-    -p 19133:19133/tcp \
-    -p 19133:19133/udp \
-    -p 25565-25575:25565-25575 \
+    -p 19132-19232:19132-19232/tcp \
+    -p 19132-19232:19132-19232/udp \
+    -p 25565-25575:25565-25575/tcp \
     --name=crafty \
     -v /apps/docker/crafty:/config \
     -v /etc/localtime:/etc/localtime:ro \
     -e TZ=Etc/UTC \
     -e JAVA_VERSION=latest \
     -e UMASK=000 \
-    -e PUID=0 \
-    -e PGID=0 \
+    -e PUID=99 \
+    -e PGID=100 \
     binhex/arch-crafty-4
 ```
 
 **Notes**
+Crafty v4 does not support running as user `root` group `root`, so please ensure `PUID` and `PGID` are NOT set to `0`.<br><br>
 
 User ID (PUID) and Group ID (PGID) can be found by issuing the following command for the user you want to run the container as:-
 
