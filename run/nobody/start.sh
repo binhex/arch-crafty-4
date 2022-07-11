@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/dumb-init /bin/bash
 
 # set install location for crafty
 crafty_install_path="/opt/crafty"
