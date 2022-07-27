@@ -31,7 +31,7 @@ source ./env/bin/activate
 
 # remove previous session lock file if it exists (contains pid and datetime)
 if [[ -f "${crafty_session_lock_filepath}" ]]; then
-	echo "Removing previous session.lock file from '${crafty_session_lock_filepath}'..."
+	echo "Removing previous session.lock file '${crafty_session_lock_filepath}'..."
 	rm -f "${crafty_session_lock_filepath}"
 fi
 
