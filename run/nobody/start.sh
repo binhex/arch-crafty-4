@@ -3,6 +3,8 @@
 # set install location for crafty
 crafty_install_path="/opt/crafty"
 
+crafty_session_lock_filepath="/config/crafty/app/config/session.lock"
+
 # symlink app to config
 source '/usr/local/bin/utils.sh' && symlink --src-path "${crafty_install_path}/app/config" --dst-path '/config/crafty/app/config' --link-type 'softlink' --log-level 'WARN'
 
@@ -26,6 +28,12 @@ cp -n -R '/opt/crafty/app/config-backup/'* '/opt/crafty/app/config/'
 
 # activate virtualenv where requirements have been installed from install.sh
 source ./env/bin/activate
+
+# remove previous session lock file if it exists (contains pid and datetime)
+if [[ -f "${crafty_session_lock_filepath}" ]]; then
+	echo "Removing previous session.lock file from '${crafty_session_lock_filepath}'..."
+	rm -f "${crafty_session_lock_filepath}"
+fi
 
 # run app
 python3 "${crafty_install_path}/main.py"
