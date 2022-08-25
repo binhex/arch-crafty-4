@@ -4,6 +4,7 @@ set -x
 # set install location for crafty
 crafty_install_path="/opt/crafty"
 
+# crafty lock file (indicates crafty process running) path, deleted on startup (process not running)
 crafty_session_lock_filepath="/config/crafty/app/config/session.lock"
 
 # symlink app to config
