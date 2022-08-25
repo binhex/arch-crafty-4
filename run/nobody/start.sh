@@ -35,5 +35,8 @@ if [[ -f "${crafty_session_lock_filepath}" ]]; then
 	rm -f "${crafty_session_lock_filepath}"
 fi
 
+# overwrite file containing latest version info
+cp '/opt/crafty/app/config-backup/version.json' '/config/crafty/app/config/version.json'
+
 # run app
 python3 "${crafty_install_path}/main.py"
