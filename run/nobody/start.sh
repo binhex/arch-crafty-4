@@ -21,6 +21,8 @@ source '/usr/local/bin/utils.sh' && symlink --src-path "${crafty_install_path}/s
 # symlink backups to config
 source '/usr/local/bin/utils.sh' && symlink --src-path "${crafty_install_path}/backups" --dst-path '/config/crafty/backups' --link-type 'softlink' --log-level 'WARN'
 
+cd "${crafty_install_path}"
+
 # if any default config files are missing (no clobber) then copy from 'config-backup' folder (created by utils.sh symlink)
 cp -n -R "${crafty_install_path}/app/config-backup/"* "${crafty_install_path}/app/config/"
 
