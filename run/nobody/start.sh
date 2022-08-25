@@ -20,14 +20,11 @@ source '/usr/local/bin/utils.sh' && symlink --src-path "${crafty_install_path}/s
 # symlink backups to config
 source '/usr/local/bin/utils.sh' && symlink --src-path "${crafty_install_path}/backups" --dst-path '/config/crafty/backups' --link-type 'softlink' --log-level 'WARN'
 
-# change to app install path and activate virtualenv
-cd "${crafty_install_path}"
-
 # if any default config files are missing (no clobber) then copy from 'config-backup' folder (created by utils.sh symlink)
 cp -n -R '/opt/crafty/app/config-backup/'* '/opt/crafty/app/config/'
 
 # activate virtualenv where requirements have been installed from install.sh
-source ./env/bin/activate
+source "${crafty_install_path}/venv/bin/activate"
 
 # remove previous session lock file if it exists (contains pid and datetime)
 if [[ -f "${crafty_session_lock_filepath}" ]]; then
@@ -36,7 +33,7 @@ if [[ -f "${crafty_session_lock_filepath}" ]]; then
 fi
 
 # overwrite file containing latest version info
-cp '/opt/crafty/app/config-backup/version.json' '/config/crafty/app/config/version.json'
+cp "${crafty_install_path}/app/config-backup/version.json" '/config/crafty/app/config/version.json'
 
 # run app
 python3 "${crafty_install_path}/main.py"

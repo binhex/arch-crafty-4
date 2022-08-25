@@ -58,6 +58,7 @@ source aur.sh
 ####
 
 install_path="/opt/crafty"
+virtualenv_path="/opt/crafty/venv"
 
 # download crafty from branch 'master' (no releases at this time)
 # '--depth=1' ensures only latest commits to speed up download
@@ -66,8 +67,8 @@ git clone --depth=1 --branch master https://gitlab.com/crafty-controller/crafty-
 # python
 ####
 
-# use pip to install requirements as defined in requirements.txt
-pip.sh --install-path "${install_path}" --log-level 'WARN'
+# use pip to install requirements for sabnzbd as defined in requirements.txt
+pip.sh --install-path "${install_path}" --create-virtualenv 'yes' --virtualenv-path "${virtualenv_path}" --log-level 'WARN'
 
 # container perms
 ####
