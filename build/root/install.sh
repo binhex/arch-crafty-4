@@ -38,7 +38,7 @@ fi
 ####
 
 # define pacman packages
-pacman_packages="jre8-openjdk-headless jre11-openjdk-headless jre-openjdk-headless gcc git"
+pacman_packages="jre8-openjdk-headless jre11-openjdk-headless  jre17-openjdk-headless jre-openjdk-headless gcc git"
 
 # install compiled packages using pacman
 if [[ ! -z "${pacman_packages}" ]]; then
@@ -147,6 +147,9 @@ if [[ "${JAVA_VERSION}" == "8" ]]; then
 elif [[ "${JAVA_VERSION}" == "11" ]]; then
 	ln -fs '/usr/lib/jvm/java-11-openjdk/bin/java' '/usr/bin/java'
 	archlinux-java set java-11-openjdk
+elif [[ "${JAVA_VERSION}" == "17" ]]; then
+	ln -fs '/usr/lib/jvm/java-17-openjdk/bin/java' '/usr/bin/java'
+	archlinux-java set java-17-openjdk
 elif [[ "${JAVA_VERSION}" == "latest" ]]; then
 	ln -fs "/usr/lib/jvm/java-${latest_java_version}-openjdk/bin/java" '/usr/bin/java'
 	archlinux-java set java-${latest_java_version}-openjdk

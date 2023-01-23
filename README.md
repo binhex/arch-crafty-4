@@ -24,7 +24,7 @@ docker run -d \
     -v <path for config files>:/config \
     -v /etc/localtime:/etc/localtime:ro \
     -e TZ=Etc/<region> \
-    -e JAVA_VERSION=<8|11|latest> \
+    -e JAVA_VERSION=<8|11|17|latest> \
     -e UMASK=<umask for created files> \
     -e PUID=<uid for user> \
     -e PGID=<gid for user> \
