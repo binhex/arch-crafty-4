@@ -41,7 +41,7 @@ Please replace all user variables in the above command defined by <> with the co
 **Web UI Credentials**
 
 Username: `admin`<br>
-Password: `crafty`
+Password: This is now dynamically generated, if not set then the password will be stored in `/config/crafty/app/config/default-creds.txt`, for reference the previously hardcoded password was `crafty`.<br>
 
 **Example**
 ```
