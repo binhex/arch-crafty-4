@@ -66,8 +66,7 @@ git clone --depth=1 --branch master https://gitlab.com/crafty-controller/crafty-
 ####
 
 # use pip to install requirements for crafty as defined in requirements.txt
-# note we are contraining the version of cython due to this issue:- https://stackoverflow.com/questions/77490435/attributeerror-cython-sources
-pip.sh --install-path "${install_path}" --package-constraints 'PyYAML>=6' --create-virtualenv 'yes' --virtualenv-path "${virtualenv_path}" --log-level 'INFO'
+pip.sh --install-path "${install_path}" --create-virtualenv 'yes' --virtualenv-path "${virtualenv_path}" --log-level 'INFO'
 
 # container perms
 ####
