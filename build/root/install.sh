@@ -62,10 +62,17 @@ virtualenv_path="/opt/crafty/venv"
 # '--depth=1' ensures only latest commits to speed up download
 git clone --depth=1 --branch master https://gitlab.com/crafty-controller/crafty-4 "${install_path}"
 
+# custom
+####
+
+# hack to increase PyYAML version to 6.0.1 to fix Cython compatability issue
+# see https://stackoverflow.com/questions/77490435/attributeerror-cython-sources
+sed -i -e 's~PyYAML==5.4.1~PyYAML >= 6>~g' "${install_path}/requirements.txt"
+
 # python
 ####
 
-# use pip to install requirements for sabnzbd as defined in requirements.txt
+# use pip to install requirements for crafty as defined in requirements.txt
 pip.sh --install-path "${install_path}" --create-virtualenv 'yes' --virtualenv-path "${virtualenv_path}" --log-level 'WARN'
 
 # container perms
