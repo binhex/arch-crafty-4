@@ -30,19 +30,6 @@ RUN chmod +x /root/*.sh && \
 # docker settings
 #################
 
-# expose ipv4 port range for minecraft bedrock servers
-EXPOSE 19132-19232/tcp
-EXPOSE 19132-19232/udp
-
-# expose ipv4 port range for minecraft java servers
-EXPOSE 25565-25575
-
-# expose ipv4 port for crafty web ui http (redirects to https)
-EXPOSE 8000
-
-# expose ipv4 port for crafty web ui https
-EXPOSE 8443
-
 # Security Patch for CVE-2021-44228
 ENV LOG4J_FORMAT_MSG_NO_LOOKUPS=true
 
