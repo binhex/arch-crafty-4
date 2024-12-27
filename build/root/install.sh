@@ -69,7 +69,7 @@ git clone --depth=1 --branch master https://gitlab.com/crafty-controller/crafty-
 ####
 
 # use pip to install requirements for crafty as defined in requirements.txt
-pip.sh --install-path "${install_path}" --create-virtualenv 'yes' --virtualenv-path "${virtualenv_path}" --log-level 'INFO'
+python.sh --requirements-path "${install_path}" --create-virtualenv 'yes' --virtualenv-path "${virtualenv_path}"
 
 # container perms
 ####
