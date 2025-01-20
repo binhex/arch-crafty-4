@@ -39,7 +39,7 @@ mv /tmp/scripts-master/shell/arch/docker/*.sh /usr/local/bin/
 ####
 
 # define pacman packages
-pacman_packages="jre8-openjdk-headless jre11-openjdk-headless jre17-openjdk-headless jre-openjdk-headless gcc git libwebp"
+pacman_packages="jre8-openjdk-headless jre11-openjdk-headless jre17-openjdk-headless jre-openjdk-headless gcc git libwebp rust"
 
 # install compiled packages using pacman
 if [[ ! -z "${pacman_packages}" ]]; then
