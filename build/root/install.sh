@@ -39,7 +39,7 @@ mv /tmp/scripts-master/shell/arch/docker/*.sh /usr/local/bin/
 ####
 
 # define pacman packages
-pacman_packages="jre8-openjdk-headless jre11-openjdk-headless jre17-openjdk-headless jre-openjdk-headless gcc git libwebp rust"
+pacman_packages="git python python-pip"
 
 # install compiled packages using pacman
 if [[ ! -z "${pacman_packages}" ]]; then
@@ -58,24 +58,24 @@ source aur.sh
 # github
 ####
 
-install_path="/opt/crafty"
-virtualenv_path="/opt/crafty/venv"
+install_path="/opt/siphonator"
+virtualenv_path="/opt/siphonator/venv"
 
-# download crafty from branch 'master' (no releases at this time)
+# download siphonator from branch 'master' (no releases at this time)
 # '--depth=1' ensures only latest commits to speed up download
-git clone --depth=1 --branch master https://gitlab.com/crafty-controller/crafty-4 "${install_path}"
+git clone --depth=1 --branch master https://github.com/binhex/siphonator "${install_path}"
 
 # python
 ####
 
-# use pip to install requirements for crafty as defined in requirements.txt
+# use pip to install requirements for siphonator as defined in requirements.txt
 python.sh --requirements-path "${install_path}" --create-virtualenv 'yes' --virtualenv-path "${virtualenv_path}"
 
 # container perms
 ####
 
 # define comma separated list of paths
-install_paths="/opt/crafty,/home/nobody"
+install_paths="/opt/siphonator,/home/nobody"
 
 # split comma separated string into list for install paths
 IFS=',' read -ra install_paths_list <<< "${install_paths}"
@@ -125,49 +125,6 @@ sed -i '/# PERMISSIONS_PLACEHOLDER/{
     r /tmp/permissions_heredoc
 }' /usr/local/bin/init.sh
 rm /tmp/permissions_heredoc
-
-# env vars
-####
-
-cat <<'EOF' > /tmp/envvars_heredoc
-
-# get latest java version for package 'jre-openjdk-headless'
-latest_java_version=$(pacman -Qi jre-openjdk-headless | grep -P -o -m 1 '^Version\s*: \K.+' | grep -P -o -m 1 '^[0-9]+')
-
-export JAVA_VERSION=$(echo "${JAVA_VERSION}" | sed -e 's~^[ \t]*~~;s~[ \t]*$~~')
-if [[ ! -z "${JAVA_VERSION}" ]]; then
-	echo "[info] JAVA_VERSION defined as '${JAVA_VERSION}'" | ts '%Y-%m-%d %H:%M:%.S'
-else
-	echo "[info] JAVA_VERSION not defined,(via -e JAVA_VERSION), defaulting to Java version 'latest'" | ts '%Y-%m-%d %H:%M:%.S'
-	export JAVA_VERSION="latest"
-fi
-
-if [[ "${JAVA_VERSION}" == "8" ]]; then
-	ln -fs '/usr/lib/jvm/java-8-openjdk/jre/bin/java' '/usr/bin/java'
-	archlinux-java set java-8-openjdk/jre
-elif [[ "${JAVA_VERSION}" == "11" ]]; then
-	ln -fs '/usr/lib/jvm/java-11-openjdk/bin/java' '/usr/bin/java'
-	archlinux-java set java-11-openjdk
-elif [[ "${JAVA_VERSION}" == "17" ]]; then
-	ln -fs '/usr/lib/jvm/java-17-openjdk/bin/java' '/usr/bin/java'
-	archlinux-java set java-17-openjdk
-elif [[ "${JAVA_VERSION}" == "latest" ]]; then
-	ln -fs "/usr/lib/jvm/java-${latest_java_version}-openjdk/bin/java" '/usr/bin/java'
-	archlinux-java set java-${latest_java_version}-openjdk
-else
-	echo "[warn] Java version '${JAVA_VERSION}' not valid, defaulting to Java version 'latest" | ts '%Y-%m-%d %H:%M:%.S'
-	ln -fs "/usr/lib/jvm/java-${latest_java_version}-openjdk/bin/java" '/usr/bin/java'
-	archlinux-java set java-${latest_java_version}-openjdk
-fi
-
-EOF
-
-# replace env vars placeholder string with contents of file (here doc)
-sed -i '/# ENVVARS_PLACEHOLDER/{
-    s/# ENVVARS_PLACEHOLDER//g
-    r /tmp/envvars_heredoc
-}' /usr/local/bin/init.sh
-rm /tmp/envvars_heredoc
 
 # cleanup
 cleanup.sh
