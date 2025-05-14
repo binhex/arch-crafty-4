@@ -24,7 +24,7 @@ docker run -d \
     -v <path for config files>:/config \
     -v /etc/localtime:/etc/localtime:ro \
     -e TZ=Etc/<region> \
-    -e JAVA_VERSION=<8|11|17|latest> \
+    -e JAVA_VERSION=<8|11|17|21|latest> \
     -e UMASK=<umask for created files> \
     -e PUID=<uid for user> \
     -e PGID=<gid for user> \
@@ -44,7 +44,8 @@ Username: `admin`<br>
 Password: This is now dynamically generated, if not set then the password will be stored in `/config/crafty/app/config/default-creds.txt`, for reference the previously hardcoded password was `crafty`.<br>
 
 **Example**
-```
+
+```bash
 docker run -d \
     -p 8000:8000 \
     -p 8443:8443 \
@@ -68,9 +69,10 @@ Crafty v4 does **not** support running as user `root` group `root`, so please en
 
 User ID (PUID) and Group ID (PGID) can be found by issuing the following command for the user you want to run the container as:-
 
-```
+```bsh
 id <username>
 ```
+
 ___
 If you appreciate my work, then please consider buying me a beer  :D
 
