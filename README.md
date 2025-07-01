@@ -28,7 +28,6 @@ Latest commit to GitHub branch 'master'.
 
 ```bash
 docker run -d \
-
     -p <host port for crafty web ui http>:8000 \
     -p <host port for crafty web ui https>:8443 \
     -p <host tcp port range for minecraft bedrock servers>:19132-19232/tcp \
@@ -42,9 +41,7 @@ docker run -d \
     -e UMASK=<umask for created files> \
     -e PUID=<uid for user> \
     -e PGID=<gid for user> \
-
     binhex/arch-crafty-4
-
 ```
 
 Please replace all user variables in the above command defined by <> with the
@@ -68,7 +65,6 @@ previously hardcoded password was `crafty`.
 
 ```bash
 docker run -d \
-
     -p 8000:8000 \
     -p 8443:8443 \
     -p 19132-19232:19132-19232/tcp \
@@ -82,9 +78,7 @@ docker run -d \
     -e UMASK=000 \
     -e PUID=99 \
     -e PGID=100 \
-
     binhex/arch-crafty-4
-
 ```
 
 ## Notes
