@@ -38,6 +38,8 @@ docker run -d \
     -v /etc/localtime:/etc/localtime:ro \
     -e TZ=Etc/<region> \
     -e JAVA_VERSION=<8|11|17|21|latest> \
+    -e HEALTHCHECK_COMMAND=<command> \
+    -e HEALTHCHECK_ACTION=<action> \
     -e UMASK=<umask for created files> \
     -e PUID=<uid for user> \
     -e PGID=<gid for user> \
