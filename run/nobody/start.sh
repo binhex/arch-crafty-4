@@ -8,19 +8,19 @@ crafty_install_path="/opt/crafty"
 crafty_session_lock_filepath="/config/crafty/app/config/session.lock"
 
 # symlink app to config
-source 'utils.sh' && symlink --src-path "${crafty_install_path}/app/config" --dst-path '/config/crafty/app/config' --link-type 'softlink'
+source 'utils.sh' && symlink --src-path '/config/crafty/app/config' --dst-path "${crafty_install_path}/app/config" --link-type 'softlink'
 
 # symlink logs to config
-source 'utils.sh' && symlink --src-path "${crafty_install_path}/logs" --dst-path '/config/crafty/logs' --link-type 'softlink'
+source 'utils.sh' && symlink --src-path '/config/crafty/logs' --dst-path "${crafty_install_path}/logs" --link-type 'softlink'
 
 # symlink import to config
-source 'utils.sh' && symlink --src-path "${crafty_install_path}/import" --dst-path '/config/crafty/import' --link-type 'softlink'
+source 'utils.sh' && symlink --src-path '/config/crafty/import' --dst-path "${crafty_install_path}/import" --link-type 'softlink'
 
 # symlink servers to config
-source 'utils.sh' && symlink --src-path "${crafty_install_path}/servers" --dst-path '/config/crafty/servers' --link-type 'softlink'
+source 'utils.sh' && symlink --src-path '/config/crafty/servers' --dst-path "${crafty_install_path}/servers" --link-type 'softlink'
 
 # symlink backups to config
-source 'utils.sh' && symlink --src-path "${crafty_install_path}/backups" --dst-path '/config/crafty/backups' --link-type 'softlink'
+source 'utils.sh' && symlink --src-path '/config/crafty/backups' --dst-path "${crafty_install_path}/backups" --link-type 'softlink'
 
 cd "${crafty_install_path}"
 
