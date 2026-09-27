@@ -61,6 +61,87 @@ virtualenv_path="/opt/crafty/venv"
 # '--depth=1' ensures only latest commits to speed up download
 git clone --depth=1 --branch master https://gitlab.com/crafty-controller/crafty-4 "${install_path}"
 
+# crafty source patches
+######################
+
+# resolve stored server paths before relative path comparisons, required as this
+# image symlinks persistence dirs into place, see upstream issue #752 and
+# binhex/arch-crafty-4#12, patch step can be removed once upstream ships a fix
+
+crafty_files_py="${install_path}/app/classes/web/routes/api/servers/server/files.py"
+crafty_helpers_py="${install_path}/app/classes/helpers/file_helpers.py"
+
+# both patched expressions use pathlib's Path as a bare name, so fail loudly if a
+# target file disappears or upstream stops importing it (runtime-only otherwise)
+for crafty_py in "${crafty_files_py}" "${crafty_helpers_py}"; do
+	if [[ ! -f "${crafty_py}" ]]; then
+		echo "[crit] Expected file '${crafty_py}' not found, exiting build process..."
+		exit 1
+	fi
+	if ! grep -Eq '^from pathlib import .*\bPath\b' "${crafty_py}" \
+		|| grep -Eq '^from pathlib import .*\bPath[[:space:]]+as\b' "${crafty_py}"; then
+		echo "[crit] Expected Path import in '${crafty_py}', exiting build process..."
+		exit 1
+	fi
+done
+
+crafty_files_py_match='PurePath(raw_path), PurePath(server_path)'
+crafty_files_py_replace='PurePath(raw_path), PurePath(Path(server_path).resolve())'
+crafty_files_py_patched_before=$(grep -o -F "${crafty_files_py_replace}" "${crafty_files_py}" | wc -l || true)
+
+if [[ "${crafty_files_py_patched_before}" -ne 0 ]]; then
+	echo "[crit] '${crafty_files_py}' already contains the crafty server path patch, exiting build process..."
+	exit 1
+fi
+
+crafty_files_py_count=$(grep -o -F "${crafty_files_py_match}" "${crafty_files_py}" | wc -l || true)
+
+if [[ "${crafty_files_py_count}" -ne 2 ]]; then
+	echo "[crit] Expected 2 crafty server path patch matches, found '${crafty_files_py_count}'..."
+	echo "[crit] Unable to patch '${crafty_files_py}', exiting build process..."
+	exit 1
+fi
+
+sed -i "s/${crafty_files_py_match}/${crafty_files_py_replace}/g" "${crafty_files_py}"
+
+crafty_files_py_patched_after=$(grep -o -F "${crafty_files_py_replace}" "${crafty_files_py}" | wc -l || true)
+
+if [[ "${crafty_files_py_patched_after}" -ne 2 ]]; then
+	echo "[crit] Expected 2 crafty server path patch results, found '${crafty_files_py_patched_after}'..."
+	echo "[crit] Unable to patch '${crafty_files_py}', exiting build process..."
+	exit 1
+fi
+
+# resolve stored server path before walking it for backups, so excluded dirs
+# (stored as relative or resolved paths) are matched when creating backups
+
+crafty_helpers_py_match='path_to_zip: Path = Path(path_to_zip)'
+crafty_helpers_py_replace='path_to_zip: Path = Path(path_to_zip).resolve()'
+crafty_helpers_py_patched_before=$(grep -o -F "${crafty_helpers_py_replace}" "${crafty_helpers_py}" | wc -l || true)
+
+if [[ "${crafty_helpers_py_patched_before}" -ne 0 ]]; then
+	echo "[crit] '${crafty_helpers_py}' already contains the crafty backup exclude patch, exiting build process..."
+	exit 1
+fi
+
+crafty_helpers_py_count=$(grep -o -F "${crafty_helpers_py_match}" "${crafty_helpers_py}" | wc -l || true)
+
+if [[ "${crafty_helpers_py_count}" -ne 1 ]]; then
+	echo "[crit] Expected 1 crafty backup exclude patch match, found '${crafty_helpers_py_count}'..."
+	echo "[crit] Unable to patch '${crafty_helpers_py}', exiting build process..."
+	exit 1
+fi
+
+sed -i "s/${crafty_helpers_py_match}/${crafty_helpers_py_replace}/" "${crafty_helpers_py}"
+
+crafty_helpers_py_patched_after=$(grep -o -F "${crafty_helpers_py_replace}" "${crafty_helpers_py}" | wc -l || true)
+
+if [[ "${crafty_helpers_py_patched_after}" -ne 1 ]]; then
+	echo "[crit] Expected 1 crafty backup exclude patch result, found '${crafty_helpers_py_patched_after}'..."
+	echo "[crit] Unable to patch '${crafty_helpers_py}', exiting build process..."
+	exit 1
+fi
+
 # python
 ####
 
