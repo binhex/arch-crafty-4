@@ -38,6 +38,8 @@ docker run -d \
     -v /etc/localtime:/etc/localtime:ro \
     -e TZ=Etc/<region> \
     -e JAVA_VERSION=<8|11|17|21|latest> \
+    -e ENABLE_STARTUP_SCRIPTS=<yes|no> \
+    -e STARTUP_SCRIPTS_MODE=<wait|parallel> \
     -e HEALTHCHECK_COMMAND=<command> \
     -e HEALTHCHECK_ACTION=<action> \
     -e HEALTHCHECK_HOSTNAME=<hostname> \
@@ -78,6 +80,8 @@ docker run -d \
     -v /etc/localtime:/etc/localtime:ro \
     -e TZ=Etc/UTC \
     -e JAVA_VERSION=latest \
+    -e ENABLE_STARTUP_SCRIPTS=no \
+    -e STARTUP_SCRIPTS_MODE=wait \
     -e UMASK=000 \
     -e PUID=99 \
     -e PGID=100 \
@@ -85,6 +89,14 @@ docker run -d \
 ```
 
 ## Notes
+
+`ENABLE_STARTUP_SCRIPTS` when set to `yes` (default `no`) will allow a user to
+install additional packages from the official Arch Repository or the Arch User
+Repository (AUR) via scripts located in the folder `/config/crafty-4/scripts/`.
+
+`STARTUP_SCRIPTS_MODE` controls how those scripts are executed, set to `wait`
+(default) to run each script in turn and wait for it to complete before the next
+script runs, or `parallel` to run all scripts at the same time.
 
 Crafty v4 does **not** support running as user `root` group `root`, so please
 ensure `PUID` and `PGID` are NOT set to `0`.
